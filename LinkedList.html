@@ -165,11 +165,21 @@
 		        }
 
 		        // If index is not zero
-		        if(index.value > 0 && index.value <= this.size){
-		            console.log("it Works");
+		        
+		        var node = new Node(new_data.value);
+		        var current,previous;
+		        current = this.head;
+		        var i = 0;
+		        while(i<index.value){
+		            previous=current;
+		            current=current.next;
+		            i++;
+
 		        }
 
-		        this.size++;
+		        node.next=current;
+		        previous.next=node;
+		        return;
 		    }
 
 		    // Remove at index
@@ -190,24 +200,16 @@
 		            this.head = current.next;
 		            //console.log("From remove: " + index.value);
 		            result.innerHTML = "You have cleared node at index: " + index.value;
+		        }else {
+		            while(count < index.value){
+		                previous = current;
+		                current = current.next;
+		                count++;
+		            }
+		            previous.next=current.next;
 		        }
-		        // }else{
-		        //     while(count < index.value){
-		        //         count++;
-		        //         previous = current;
-		        //         current = current.next;
-		        //     }
-
-		        //     previous.next = current.next;
-		        //     result.innerHTML = current;
-		        // }
-
-		        if (index.value.length == 0){
-		            result.innerHTML = "";
-		   
-		        }
-
 		        this.size--;
+		        return;
 
 		    }
 
