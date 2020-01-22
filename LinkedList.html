@@ -25,32 +25,20 @@
 			border: none;
 			border-bottom: 1px solid black;
 		}
-		#node-at-head{
+		.node-at-head{
 			width: 50%;
 		}
-		#index{
+		.index{
 			width: 50%;
 			margin-top: 12px;
 		}
 		#container-2{
-			/*background-color: red;*/
 			display: flex;
 			justify-content: space-between;
 			width: 60%;
 			padding-top:1%;
-			/*width: 25%;*/
-		}
-		#container-3{
-			/*background-color: red;*/
-			display: flex;
-			justify-content: space-between;
-			width: 60%; 
-			
-
-			/*width: 25%;*/
 		}
 		.btn-l{
-			/*float: left;*/
 			width: 300px;
 			height: 50px;
 			font-size: 20px;
@@ -61,7 +49,6 @@
 			border-radius: 10px;
 		}
 		.btn-r{
-			/*float: right;*/
 			width: 300px;
 			height: 50px;
 			font-size: 20px;
@@ -71,15 +58,11 @@
 			border-color: transparent;
 			border-radius: 10px;
 		}
-		#container-4{
-			/*background-color: red;*/
-			/*display: flex;
-			justify-content: space-between;*/
+		#container-3{
 			width: 60%;
 			padding-top:1%;
-			/*width: 25%;*/
 		}
-		#container-4 button{
+		#container-3 button{
 			width: 100%;
 			height: 50px;
 			font-size: 20px;
@@ -90,188 +73,233 @@
 			border-radius: 10px;
 			/*width: 25%;*/
 		}
-		/*#container-2 button{
-			width: 40%;
-		}*/
+		#container-4 input[type=text]{
+			font-size: 16px;
+			background-color: transparent;
+			border: none;
+			border-bottom: 1px solid black;
+			width: 50%;
+			margin-top: 12px;
+		}
+
+
+		#container-5{
+			width: 60%;
+			padding-top:1%;
+		}
+		#container-5 button{
+			width: 100%;
+			height: 50px;
+			font-size: 20px;
+			margin-top: 10px;
+			color:white;
+			background-color: #303952;
+			border-color: transparent;
+			border-radius: 10px;
+		}
+		#res , #res2{
+			color: white;
+			font-family: 'Righteous', cursive;
+			font-size:40px;
+
+		}
+
+		table {
+		  color:white;
+
+		}
 	</style>
 	<script type="text/javascript">
 		class Node {
-		    constructor(data, next = null) {
-		        this.data = data;
-		        this.next = next;
-		    }
+			constructor(data , next = null){
+				this.data = data;
+				this.next = next;
+
+			}
 		}
 
-		class LinkedList {
-		    constructor() {
-		        this.head = null;
-		        this.size = 0;
-		    }
+		class LList {
+			constructor(){
+				this.head = null;
+				this.size = 0;
+			}
 
-		    // Insert Node At Head
-		    insertNodeAtHead(){
-		        var new_data = document.getElementById("node-at-head");
-		        var result = document.getElementById("result");
-		        if (new_data.value.length > 0){
-		            this.head = new Node(new_data.value, this.head);
+			Addfirst(data){
+				this.head = new Node(data, this.head);
+				this.size++;
+				alert("Added successfully");
+				return;
 
-		            result.innerHTML = this.head.data + " " ;
-		            console.log("Size of linked list: " + this.size);
-		            this.size++;
-		        }
-		    }
+			}
 
-		    insertNodeAtTail(){
-		        var new_data = document.getElementById("node-at-head");
-		        var result = document.getElementById("result");
+			Addlast(data){
+				var node = new Node(data);
+				var current;
 
-		        let node = new Node(new_data.value);
+				if(this.head===null){
+					this.head = node;
+					alert("Added successfully");
+				}
+				else {
+					current=this.head;
 
-		        if (new_data.value.length > 0){
-		            result.innerHTML = " " ;
-		            result.innerHTML += new_data.value + " " ;
-		            console.log("Size of linked list: " + this.size++);
-		        }
+					while(current.next){
+						current=current.next;
+					}
+					current.next=node;
+					alert("Added successfully");
+				}
+				this.size++;
+				return;
 
-		        var current;
 
-		        // If empty make head
-		        if(!this.head){
-		            this.head = node;
-		        }else{
-		            current = this.head;
-		            while(current.next){
-		                current = current.next;
-		            }
-		            current.next = node;
-		        }
+			}
 
-		    }
+			AddAt(data,index){
 
-		    // Insert at index
-		    insertByIndex(){
-		        var new_data = document.getElementById("node-at-head");
-		        var index = document.getElementById("index");
+				if (index > 0 && index > this.size) {
+					return;
+				}
 
-		        // If index is out of range
-		        if(index.value > 0 && index.value > this.size){
-		            return;
-		        }
+				if (index == 0) {
+					this.head = new Node(data , this.head);
+					alert("Added successfully");
+					return;
+				}
 
-		        // If first index
-		        if(index.value == 0){
-		            this.insertNodeAtHead();
-		            return;
-		        }
+				var node = new Node(data);
+				var current,previous;
+				current = this.head;
+				var i = 0;
+				while(i<index){
+					previous=current;
+					current=current.next;
+					i++;
 
-		        // If index is not zero
-		        
-		        var node = new Node(new_data.value);
-		        var current,previous;
-		        current = this.head;
-		        var i = 0;
-		        while(i<index.value){
-		            previous=current;
-		            current=current.next;
-		            i++;
+				}
 
-		        }
+				node.next=current;
+				previous.next=node;
+				alert("Added successfully");
+				return;
 
-		        node.next=current;
-		        previous.next=node;
-		        return;
-		    }
+			}
+			getAt(index){
 
-		    // Remove at index
-		    removeAt(){
-		        var index = document.getElementById("index");
-		        var result = document.getElementById("result");
+				var current = this.head;
+				var i = 0;
 
-		        if(index.value > 0 && index.value > this.size){
-		            return;
-		        }
+				while(current){
+					if (i==index) {
+						return current.data;
+					}
 
-		        var current = this.head;
-		        var previous;
-		        var count = 0;
+					current=current.next;
+					i++;
+				}
+				return;
 
-		        // Remove first
-		        if(index.value == 0){
-		            this.head = current.next;
-		            //console.log("From remove: " + index.value);
-		            result.innerHTML = "You have cleared node at index: " + index.value;
-		        }else {
-		            while(count < index.value){
-		                previous = current;
-		                current = current.next;
-		                count++;
-		            }
-		            previous.next=current.next;
-		        }
-		        this.size--;
-		        return;
+			}
 
-		    }
+			Affiche(){
+				var current=this.head;
+				var tab=[];
+				
+				
+				while(current){
+					
+					tab.push(current.data);
+					current=current.next;
+					
+				}
+			
+				return tab;
 
-		    // Clear List
-		    clearList(){
-		        var result = document.getElementById("result");
-		        if (this.head != null){
-		            this.size = 0;
-		            this.head = null;
-		            // console.log("Data of linked list: " + this.head);
-		            // console.log("Size of linked list: " + this.size);
-		            result.innerHTML = "Linked List Cleared !";
-		        }
-		    }
+				
+			}
 
-		    // Print List Data
-		    printListData(){
-		        if(this.head != null){
-		            var result = document.getElementById("result");
-		            let current = this.head;
-		            result.innerHTML = "You have entered: <br/>";
-		            while(current){
-		                // console.log(current.data);
-		                result.innerHTML += current.data + "<br>";
-		                // this.size--;
-		                current = current.next;
-		            }
-		        }
-		    }
+			deletAt(index){
+				if(index>this.size){
+					return;
+				}
+				var current = this.head;
+				var previous;
+				var i = 0;
+
+				if(index == 0){
+					this.head = current.next;
+					alert("Deleted successfully");
+					return;
+
+				} else {
+					while(i<index){
+						previous=current;
+						current=current.next;
+						i++;
+					}
+					previous.next=current.next;
+					alert("Deleted successfully");
+				}
+				this.size--;
+				return;
+
+			}
+
+			deletList(){
+				this.head=null;
+				this.size=0;
+				return;
+			}
 
 		}
 
+		/*for console test
+		var ll = new LList();
 
-		var node = new LinkedList();
+		ll.Addlast(1);
 
-		// insert Node At Head
-		function insertNodeAtHead(){
-		    node.insertNodeAtHead();
+
+
+		ll.Affiche();*/
+
+		var ll = new LList();
+
+		function ajoutDebut(){
+			
+			ll.Addfirst(document.getElementById('data').value);
+
 		}
 
-		// insert Node At Tail
-		function insertNodeAtTail(){
-		    node.insertNodeAtTail();
+		function ajoutFin(){
+
+			ll.Addlast(document.getElementById('data').value);
 		}
 
-		// Insert By Index
-		function insertByIndex(){
-		    node.insertByIndex();
+		function ajoutIn(){
+			ll.AddAt(document.getElementById('data').value , document.getElementById('index').value);
+
 		}
 
-		// Remove By Index
+
+
+		function removeList(){
+			ll.deletList();
+		}
+
 		function removeAt(){
-		    node.removeAt();
+			ll.deletAt(document.getElementById('index').value);
 		}
 
-		// Clear List
-		function clearList(){
-		    node.clearList();
+		function printList(){
+			
+			document.getElementById("res").innerHTML=ll.Affiche();
+
 		}
-		// Print List 
-		function printListData(){
-		    node.printListData();
+
+		function getIn(){
+
+			document.getElementById("res2").innerHTML=ll.getAt(document.getElementById('index').value);	
+
 		}
 	</script>
 </head>
@@ -283,23 +311,38 @@
 				<div id="container">
 					<!-- Input -->
 					<div id="container-1">
-						<input type="text" name="" id="node-at-head" placeholder="Node Data Ex:10"><br>
-						<input type="text" name="" id="index" placeholder="Node Index [This field is used with INSERT & CLEAR node by index, Ex:0]"><br>
+						<input type="text" name="" class="node-at-head" id="data" placeholder="Enter Data !"><br>
 					</div>
 					<div id="container-2">
-						<button id="node-at-head-button" onclick="insertNodeAtHead()" class="btn-l">Insert node at head</button>
-        				<button id="node-at-tail-button" onclick="insertNodeAtTail()" class="btn-r">Insert node at tail</button>
+						<button onclick="ajoutDebut()" class="btn-l">Addfirst</button>
+        				<button onclick="ajoutFin()" class="btn-r">AddLast</button>
         			</div>
-					<div id="container-3">
-						<button id="print-node-by-index-button" onclick="insertByIndex()" class="btn-l">Insert node by index</button>
-        				<button id="clear-node-by-index-button" onclick="removeAt()" class="btn-r">Clear node by index</button>
+        			<div id="container-3">
+						<button onclick="printList()">AfficheListe</button>
+        				<button onclick="removeList()">Deletlist</button>
 					</div>
+
+
 					<div id="container-4">
-						<button id="clear-entire-linked-list-button" onclick="clearList()">Clear linked list</button>
-        				<button id="clear-entire-linked-list-button" onclick="printListData()">Print linked list</button>
+						<input type="text" name="" id="index" placeholder="Enter index !"><br>
+					</div>
+
+					<div id="container-5">
+						<button  onclick="ajoutIn()">AddAt</button>
+						<button  onclick="getIn()">GetAt</button>
+        				<button  onclick="removeAt()">RemoveAt</button>
 					</div>
 					<!-- result -->
-        			<h1>Result :</h1> <h2 id="result" style="margin-top:20px"></h2>
+        			<p>Print list result:</p>
+					<div id="res">
+						
+						
+					</div>
+					<p>getAt list result:</p>
+					<div id="res2">
+						
+						
+					</div>
 				</div>
 			</center>
 		</div>
